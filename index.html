@@ -485,7 +485,7 @@ function viewAddForm(){
   return`<div class="form-view">
     <button class="form-back" onclick="cancelAdd()"><i class="ti ti-arrow-left"></i> Back</button>
     <p style="font-size:17px;font-weight:500;margin-bottom:20px">${state.editRoutine?'Edit routine':'New routine'}</p>
-    <div class="field"><label class="field-label">Name</label><input type="text" value="${f.title||''}" oninput="setF('title',this.value)" placeholder="e.g. Morning meditation" id="titleInput"></div>
+    <div class="field"><label class="field-label">Name</label><input type="text" value="${f.title||''}" oninput="setF('title',this.value)" placeholder="e.g. Morning meditation" id="titleInput" autocomplete="off"></div>
     <div class="field"><label class="field-label">Area of life</label>${areaHtml}</div>
     <div class="field" style="display:flex;gap:12px;flex-wrap:wrap">
       <div style="flex:1;min-width:140px"><label class="field-label">Frequency</label><select onchange="setF('frequency',this.value);setF('daysOfWeek',[])">${freqOpts}</select></div>
@@ -536,7 +536,7 @@ function render(){
         <i class="ti ${t.icon}"></i>${t.label}
       </button>`).join('')}
     </nav>`;
-  if(state.addView){const ti=document.getElementById('titleInput');if(ti)setTimeout(()=>ti.focus(),80);}
+  if(state.addView){const ti=document.getElementById('titleInput');}
 }
 
 if('serviceWorker' in navigator){
