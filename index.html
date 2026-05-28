@@ -174,6 +174,7 @@ function openEdit(id){
 }
 function cancelAdd(){state.addView=false;state.editRoutine=null;render();}
 function saveRoutine(){
+  const ti=document.getElementById("titleInput");if(ti)state.form.title=ti.value;
   const f=state.form;if(!f.title.trim())return;
   const r={...f,title:f.title.trim()};
   if(state.editRoutine){r.id=state.editRoutine.id;state.routines=state.routines.map(x=>x.id===r.id?r:x);}
@@ -485,7 +486,7 @@ function viewAddForm(){
   return`<div class="form-view">
     <button class="form-back" onclick="cancelAdd()"><i class="ti ti-arrow-left"></i> Back</button>
     <p style="font-size:17px;font-weight:500;margin-bottom:20px">${state.editRoutine?'Edit routine':'New routine'}</p>
-    <div class="field"><label class="field-label">Name</label><input type="text" value="${f.title||''}" oninput="setF('title',this.value)" placeholder="e.g. Morning meditation" id="titleInput" autocomplete="off"></div>
+    <div class="field"><label class="field-label">Name</label><input type="text" value="${f.title||''}" oninput="state.form.title=this.value;updateSaveBtn()" placeholder="e.g. Morning meditation" id="titleInput" autocomplete="off"></div>
     <div class="field"><label class="field-label">Area of life</label>${areaHtml}</div>
     <div class="field" style="display:flex;gap:12px;flex-wrap:wrap">
       <div style="flex:1;min-width:140px"><label class="field-label">Frequency</label><select onchange="setF('frequency',this.value);setF('daysOfWeek',[])">${freqOpts}</select></div>
@@ -496,13 +497,18 @@ function viewAddForm(){
     <div class="field"><label class="field-label">Notes (optional)</label><textarea rows="2" placeholder="Context or details..." oninput="setF('notes',this.value)">${f.notes||''}</textarea></div>
     <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
       <button class="btn" onclick="cancelAdd()">Cancel</button>
-      <button class="btn btn-primary" onclick="saveRoutine()" ${!canSave?'disabled':''} style="background:${canSave?a.hex:'var(--border)'}">
+      <button class="btn btn-primary" id="saveBtn" onclick="saveRoutine()" ${!canSave?'disabled':''} style="background:${canSave?a.hex:'var(--border)'}">
         ${state.editRoutine?'Save changes':'Add routine'}
       </button>
     </div>
   </div>`;
 }
 
+function updateSaveBtn(){
+  const btn=document.getElementById("saveBtn");
+  const ti=document.getElementById("titleInput");
+  if(btn&&ti){const ok=ti.value.trim().length>0;btn.disabled=!ok;btn.style.background=ok?getA(state.form.areaId).hex:"var(--border)";}
+}
 function render(){
   const root=document.getElementById('app');
   const todayR=state.routines.filter(r=>isDue(r,TODAY));
