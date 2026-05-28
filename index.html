@@ -87,7 +87,7 @@
 <script>
 const AREAS=[
   {id:'spiritual',   name:'Spiritual',    type:'personal',hex:'#7F77DD',bg:'#EEEDFE',dark:'#3C3489'},
-  {id:'financial',   name:'Financial',    type:'personal',hex:'#BA7517',bg:'#FAEEDA',dark:'#633806'},
+  {id:'financial',   name:'Wealth',    type:'personal',hex:'#BA7517',bg:'#FAEEDA',dark:'#633806'},
   {id:'health',      name:'Health',       type:'personal',hex:'#639922',bg:'#EAF3DE',dark:'#27500A'},
   {id:'relationship',name:'Relationship', type:'personal',hex:'#D4537E',bg:'#FBEAF0',dark:'#72243E'},
   {id:'adventure',   name:'Adventure',    type:'personal',hex:'#D85A30',bg:'#FAECE7',dark:'#712B13'},
@@ -95,7 +95,13 @@ const AREAS=[
   {id:'growth',      name:'Growth',       type:'personal',hex:'#378ADD',bg:'#E6F1FB',dark:'#0C447C'},
   {id:'showmasters', name:'Showmasters',  type:'work',    hex:'#E24B4A',bg:'#FCEBEB',dark:'#791F1F'},
   {id:'superkicks',  name:'Super Kicks',  type:'work',    hex:'#185FA5',bg:'#EEF5FD',dark:'#042C53'},
-  {id:'hawthxrn',    name:'Hawthxrn',     type:'work',    hex:'#3B6D11',bg:'#EDF5E2',dark:'#173404'},
+  {id:'hawthxrn',    name:'Hawthxrn',         type:'work', hex:'#3B6D11',bg:'#EDF5E2',dark:'#173404'},
+  {id:'hwth_youtube',  name:'Hawthxrn / YouTube',  type:'work', hex:'#CC0000',bg:'#FDECEA',dark:'#7A0000'},
+  {id:'hwth_tiktok',   name:'Hawthxrn / TikTok',   type:'work', hex:'#010101',bg:'#F0F0F0',dark:'#222222'},
+  {id:'hwth_instagram',name:'Hawthxrn / Instagram', type:'work', hex:'#C13584',bg:'#FCE4F3',dark:'#6A1040'},
+  {id:'hwth_discord',  name:'Hawthxrn / Discord',  type:'work', hex:'#5865F2',bg:'#EDEFFE',dark:'#2C3490'},
+  {id:'hwth_substack', name:'Hawthxrn / Substack',  type:'work', hex:'#FF6719',bg:'#FFF0E6',dark:'#8C3000'},
+  {id:'hwth_pinterest',name:'Hawthxrn / Pinterest', type:'work', hex:'#E60023',bg:'#FDECEA',dark:'#7A0012'},
   {id:'nonprofit',   name:'Nonprofit',    type:'work',    hex:'#0F6E56',bg:'#E3F5EE',dark:'#04342C'},
 ];
 const FREQ=[
@@ -536,7 +542,7 @@ function render(){
       </div>
     </div>
     <div class="scroll-area">${content}</div>
-    ${!state.addView?`<button class="fab" onclick="openAdd()" aria-label="Add routine"><i class="ti ti-plus"></i></button>`:''}
+    ${!state.addView?`<button class="fab" onclick="openAdd()" aria-label="Add routine" style="width:auto;border-radius:28px;padding:0 18px 0 14px;gap:6px;font-size:14px;font-weight:500;"><i class="ti ti-plus" style="font-size:20px"></i>Add</button>`:''}
     <nav class="bottom-nav">
       ${tabs.map(t=>`<button class="nav-btn${!state.addView&&state.tab===t.id?' active':''}" onclick="state.tab='${t.id}';state.addView=false;render()" aria-label="${t.label}">
         <i class="ti ${t.icon}"></i>${t.label}
