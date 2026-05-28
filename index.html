@@ -494,7 +494,7 @@ function viewAddForm(){
     </div>
     ${dowHtml}${domHtml}${annualHtml}
     <div class="field"><label class="field-label">Time of day</label><div class="pill-group">${slotPills}</div></div>
-    <div class="field"><label class="field-label">Notes (optional)</label><textarea rows="2" placeholder="Context or details..." oninput="setF('notes',this.value)">${f.notes||''}</textarea></div>
+    <div class="field"><label class="field-label">Notes (optional)</label><textarea rows="2" placeholder="Context or details..." oninput="state.form.notes=this.value">${f.notes||''}</textarea></div>
     <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
       <button class="btn" onclick="cancelAdd()">Cancel</button>
       <button class="btn btn-primary" id="saveBtn" onclick="saveRoutine()" ${!canSave?'disabled':''} style="background:${canSave?a.hex:'var(--border)'}">
