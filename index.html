@@ -253,18 +253,18 @@ function routineRow(r,opts={}){
       </div>
     </div>
     ${opts.checkable?`<div class="action-pair">
-      <button class="check-btn" onclick="markRoutine('${r.id}','done')" title="Done"
+      <button style="font-size:16px;font-weight:700;" class="check-btn" onclick="markRoutine('${r.id}','done')" title="Done"
         style="border:1.5px solid ${a.hex};background:transparent;" aria-label="Mark done">
-        <i class="ti ti-check" style="font-size:15px;color:${a.hex}"></i>
+        ✓
       </button>
-      <button class="skip-btn" onclick="markRoutine('${r.id}','skipped')" title="Skip"
+      <button style="font-size:16px;" class="skip-btn" onclick="markRoutine('${r.id}','skipped')" title="Skip"
         style="border:1.5px solid var(--border2);background:transparent;" aria-label="Skip">
-        <i class="ti ti-x" style="font-size:15px;color:var(--text3)"></i>
+        ✕
       </button>
     </div>`:''}
     ${opts.actions?`<div class="row-actions">
-      <button class="icon-btn" onclick="openEdit('${r.id}')" aria-label="Edit"><i class="ti ti-edit"></i></button>
-      <button class="icon-btn" onclick="delRoutine('${r.id}')" aria-label="Delete"><i class="ti ti-trash"></i></button>
+      <button class="icon-btn" onclick="openEdit('${r.id}')" aria-label="Edit">✎</button>
+      <button class="icon-btn" onclick="delRoutine('${r.id}')" aria-label="Delete">🗑</button>
     </div>`:''}
   </div>`;
 }
@@ -278,10 +278,10 @@ function viewToday(){
   const pct=total>0?Math.round(doneCount/total*100):0;
 
   if(total===0)return`<div class="empty-state">
-    <i class="ti ti-sparkles"></i>
+    ✦
     <p class="empty-title">Nothing on the schedule today</p>
     <p style="font-size:14px;margin-bottom:20px">Add your first routine to get started</p>
-    <button class="btn" onclick="openAdd()"><i class="ti ti-plus"></i> Add routine</button>
+    <button class="btn" onclick="openAdd()">+ Add routine</button>
   </div>`;
 
   const allCleared=remaining===0&&total>0;
@@ -314,7 +314,7 @@ function viewToday(){
 
   if(allCleared){
     html+=`<div style="text-align:center;padding:2.5rem 1rem">
-      <i class="ti ti-circle-check" style="font-size:48px;display:block;margin-bottom:12px;color:#639922"></i>
+      ✅
       <p style="font-weight:500;font-size:16px">All done for today</p>
       <p style="font-size:13px;margin-top:6px;color:var(--text2)">${doneCount} completed &middot; ${skippedCount} skipped</p>
     </div>`;
@@ -390,8 +390,8 @@ function viewRoutines(){
   html+=`<div style="margin-top:8px">
     <p class="section-label" style="margin-top:20px;margin-bottom:10px">Data &amp; sync</p>
     <div class="sync-bar">
-      <button class="btn" onclick="exportData()" style="font-size:13px;min-height:36px;padding:7px 12px"><i class="ti ti-download" style="font-size:16px"></i> Export backup</button>
-      <button class="btn" onclick="importData()" style="font-size:13px;min-height:36px;padding:7px 12px"><i class="ti ti-upload" style="font-size:16px"></i> Import backup</button>
+      <button class="btn" onclick="exportData()" style="font-size:13px;min-height:36px;padding:7px 12px">↓ Export backup</button>
+      <button class="btn" onclick="importData()" style="font-size:13px;min-height:36px;padding:7px 12px">↑ Import backup</button>
     </div>
     <p style="font-size:12px;color:var(--text3)">Export JSON to sync with another device.</p>
   </div>`;
@@ -490,7 +490,7 @@ function viewAddForm(){
   }).join('');
   const canSave=f.title.trim().length>0;
   return`<div class="form-view">
-    <button class="form-back" onclick="cancelAdd()"><i class="ti ti-arrow-left"></i> Back</button>
+    <button class="form-back" onclick="cancelAdd()">← Back</button>
     <p style="font-size:17px;font-weight:500;margin-bottom:20px">${state.editRoutine?'Edit routine':'New routine'}</p>
     <div class="field"><label class="field-label">Name</label><input type="text" value="${f.title||''}" oninput="state.form.title=this.value;updateSaveBtn()" placeholder="e.g. Morning meditation" id="titleInput" autocomplete="off"></div>
     <div class="field"><label class="field-label">Area of life</label>${areaHtml}</div>
@@ -542,7 +542,7 @@ function render(){
       </div>
     </div>
     <div class="scroll-area">${content}</div>
-    ${!state.addView?`<button class="fab" onclick="openAdd()" aria-label="Add routine" style="width:auto;border-radius:28px;padding:0 18px 0 14px;gap:6px;font-size:14px;font-weight:500;"><i class="ti ti-plus" style="font-size:20px"></i>Add</button>`:''}
+    ${!state.addView?`<button class="fab" onclick="openAdd()" aria-label="Add routine" style="width:auto;border-radius:28px;padding:0 18px 0 14px;gap:6px;font-size:14px;font-weight:500;">+Add</button>`:''}
     <nav class="bottom-nav">
       ${tabs.map(t=>`<button class="nav-btn${!state.addView&&state.tab===t.id?' active':''}" onclick="state.tab='${t.id}';state.addView=false;render()" aria-label="${t.label}">
         <i class="ti ${t.icon}"></i>${t.label}
